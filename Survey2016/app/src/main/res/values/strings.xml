@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">恋人探しアンケート2016</string>
+    <string name="positive_max">そう思う</string>
+    <string name="positive">少しそう思う</string>
+    <string name="natural">どちらとも思わない</string>
+    <string name="negative">あまりそう思わない</string>
+    <string name="negative_max">そう思わない</string>
+    <string name="next">次へ</string>
 </resources>
