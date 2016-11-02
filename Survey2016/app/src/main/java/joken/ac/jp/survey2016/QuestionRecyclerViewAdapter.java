@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import joken.ac.jp.survey2016.ItemFragment.OnListFragmentInteractionListener;
-import joken.ac.jp.survey2016.QuestionContent.DummyItem;
+import joken.ac.jp.survey2016.QuestionFragment.OnListFragmentInteractionListener;
+import joken.ac.jp.survey2016.QuestionContent.QuestionItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link QuestionItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder> {
 
-	private final List<DummyItem> mValues;
+	private final List<QuestionItem> mValues;
 	private final OnListFragmentInteractionListener mListener;
 
-	public QuestionRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+	public QuestionRecyclerViewAdapter(List<QuestionItem> items, OnListFragmentInteractionListener listener) {
 		mValues = items;
 		mListener = listener;
 	}
@@ -60,7 +60,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 		public final View mView;
 		public final TextView mIdView;
 		public final TextView mContentView;
-		public DummyItem mItem;
+		public QuestionItem mItem;
 
 		public ViewHolder(View view) {
 			super(view);

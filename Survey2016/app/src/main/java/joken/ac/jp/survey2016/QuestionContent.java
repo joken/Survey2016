@@ -13,14 +13,14 @@ import java.util.Map;
 public class QuestionContent {
 
 	/**
-	 * An array of sample (dummy) items.
+	 * An array of question items.
 	 */
-	public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+	public static final List<QuestionItem> ITEMS = new ArrayList<QuestionItem>();
 
 	/**
-	 * A map of sample (dummy) items, by ID.
+	 * A map of question items, by ID.
 	 */
-	public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+	public static final Map<String, QuestionItem> ITEM_MAP = new HashMap<String, QuestionItem>();
 
 	private static final int COUNT = 25;
 
@@ -31,13 +31,13 @@ public class QuestionContent {
 		}
 	}
 
-	private static void addItem(DummyItem item) {
+	private static void addItem(QuestionItem item) {
 		ITEMS.add(item);
 		ITEM_MAP.put(item.id, item);
 	}
 
-	private static DummyItem createDummyItem(int position) {
-		return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+	private static QuestionItem createDummyItem(int position) {
+		return new QuestionItem(String.valueOf(position), "Item " + position, makeDetails(position));
 	}
 
 	private static String makeDetails(int position) {
@@ -50,22 +50,22 @@ public class QuestionContent {
 	}
 
 	/**
-	 * A dummy item representing a piece of content.
+	 * A question item representing a piece of content.
 	 */
-	public static class DummyItem {
+	public static class QuestionItem {
 		public final String id;
 		public final String content;
-		public final String details;
+		public final String answer;
 
-		public DummyItem(String id, String content, String details) {
+		public QuestionItem(String id, String content, String answer) {
 			this.id = id;
 			this.content = content;
-			this.details = details;
+			this.answer = answer;
 		}
 
 		@Override
 		public String toString() {
-			return content;
+			return id + ":" +content;
 		}
 	}
 }

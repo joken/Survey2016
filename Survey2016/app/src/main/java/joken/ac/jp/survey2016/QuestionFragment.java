@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import joken.ac.jp.survey2016.QuestionContent.DummyItem;
+import joken.ac.jp.survey2016.QuestionContent.QuestionItem;
 
 /**
  * A fragment representing a list of Items.
@@ -101,6 +101,6 @@ public class QuestionFragment extends Fragment {
 	 */
 	public interface OnListFragmentInteractionListener {
 		// TODO: Update argument type and name
-		void onListFragmentInteraction(DummyItem item);
+		void onListFragmentInteraction(QuestionItem item);
 	}
 }
