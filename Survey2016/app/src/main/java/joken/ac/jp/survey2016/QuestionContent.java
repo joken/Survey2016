@@ -1,5 +1,11 @@
 package joken.ac.jp.survey2016;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,31 +28,24 @@ public class QuestionContent {
 	 */
 	public static final Map<String, QuestionItem> ITEM_MAP = new HashMap<String, QuestionItem>();
 
-	private static final int COUNT = 25;
-
-	static {
-		// Add some sample items.
-		for (int i = 1; i <= COUNT; i++) {
-			addItem(createDummyItem(i));
-		}
-	}
-
 	private static void addItem(QuestionItem item) {
 		ITEMS.add(item);
 		ITEM_MAP.put(item.id, item);
 	}
 
-	private static QuestionItem createDummyItem(int position) {
-		return new QuestionItem(String.valueOf(position), "Item " + position, makeDetails(position));
-	}
-
-	private static String makeDetails(int position) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Details about Item: ").append(position);
-		for (int i = 0; i < position; i++) {
-			builder.append("\nMore details information here.");
+	/**
+	 * 問題を作成する。
+	 * @param file 問題ファイル(csv)。
+	 * */
+	private static void createQuestionItem(File file) throws FileNotFoundException,IOException{
+		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		String line;
+		int id = 0;
+		while((line = in.readLine()) != null){
+			addItem(new QuestionItem("Question."+String.valueOf(id), line));
+			id++;
 		}
-		return builder.toString();
+		in.close();
 	}
 
 	/**
@@ -55,12 +54,12 @@ public class QuestionContent {
 	public static class QuestionItem {
 		public final String id;
 		public final String content;
-		public final String answer;
+		public final UserAnswer answer;//回答追加用のみに使用 初期化済みでなければならない。
 
-		public QuestionItem(String id, String content, String answer) {
+		public QuestionItem(String id, String content) {
 			this.id = id;
 			this.content = content;
-			this.answer = answer;
+			this.answer = UserAnswer.THIS;
 		}
 
 		@Override
