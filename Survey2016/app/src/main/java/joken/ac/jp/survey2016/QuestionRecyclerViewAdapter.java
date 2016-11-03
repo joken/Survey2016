@@ -78,9 +78,9 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 	/** ViewHolderのTypeを決定する */
 	@Override
 	public int getItemViewType(int position) {
-		if(position == 0){//ヘッダ
+		if(QuestionContent.ITEMS.get(position).toString().equals("Dummy:Header")){//ヘッダ
 			return VIEW_HEADER;
-		}else if(position == mValues.size() - 1){//フッタ
+		}else if(QuestionContent.ITEMS.get(position).toString().equals("Dummy:Footer")){//フッタ
 			return VIEW_FOOTER;
 		}else{//問題
 			return 0;
@@ -184,7 +184,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 			BootstrapButton.OnCheckedChangedListener buttonlistener = new BootstrapButton.OnCheckedChangedListener() {
 				@Override
 				public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
-					if(isChecked && userNameText.getText().length() != 0){
+					if((maleButton.isSelected() || femaleButton.isSelected()) && userNameText.getText().length() != 0){
 						startButton.setEnabled(true);
 					}else{
 						startButton.setEnabled(false);
@@ -222,7 +222,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 		}
 
 		public void onBindViewHolder(){
-			userIdView.setText(UserAnswer.THIS.getUserId());
+			userIdView.setText(String.valueOf(UserAnswer.THIS.getUserId()));
 			endButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {

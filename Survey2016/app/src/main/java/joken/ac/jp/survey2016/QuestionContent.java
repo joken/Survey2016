@@ -39,6 +39,9 @@ public class QuestionContent {
 	 * @param stream オープンした問題ファイル(csv)。
 	 * */
 	public static void createQuestionItem(InputStream stream) throws FileNotFoundException,IOException{
+		//Headerを作成
+		addItem(new QuestionItem("Dummy", "Header"));
+
 		BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 		String line;
 		int id = 0;
@@ -47,6 +50,9 @@ public class QuestionContent {
 			id++;
 		}
 		in.close();
+
+		//Footerを作成
+		addItem(new QuestionItem("Dummy", "Footer"));
 	}
 
 	/**
