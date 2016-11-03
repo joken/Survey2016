@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,6 +17,7 @@ import joken.ac.jp.survey2016.QuestionFragment.OnListFragmentInteractionListener
 import joken.ac.jp.survey2016.QuestionContent.QuestionItem;
 
 import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +68,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 			((FooterViewHolder)holder).onBindViewHolder();
 		}
 		if(holder instanceof QuestionViewHolder){
-			((QuestionViewHolder)holder).onBindViewHolder(mValues.get(position));
+			((QuestionViewHolder)holder).onBindViewHolder(mValues.get(position), position);
 		}
 	}
 
@@ -90,6 +94,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 		public final View mView;
 		@BindView(R.id.question_id) TextView mIdView;
 		@BindView(R.id.content) TextView mContentView;
+		@BindView(R.id.answer_group) RadioGroup mAnswerGroup;
+		@BindView(R.id.answer_button) BootstrapButton answerButton;
 		public QuestionItem mItem;
 
 		public QuestionViewHolder(View view) {
@@ -98,9 +104,29 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 			ButterKnife.bind(this, mView);
 		}
 
-		public void onBindViewHolder(QuestionItem item){
+		public void onBindViewHolder(QuestionItem item, final int position){
 			this.mIdView.setText(item.id);
 			this.mContentView.setText(item.content);
+
+			this.mAnswerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(RadioGroup group, int checkedId) {
+					if(UserAnswer.THIS.getAnswers().size() < position){
+						UserAnswer.THIS.addAnswer(checkedId);
+					}else{
+						UserAnswer.THIS.setAnswer(position, checkedId);
+					}
+				}
+			});
+
+			this.answerButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(position != QuestionContent.ITEMS.size() - 1){
+						mRecyclerView.smoothScrollToPosition(position+1);
+					}
+				}
+			});
 
 			this.mView.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -112,11 +138,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 					}
 				}
 			});
-		}
-
-		@OnClick(R.id.answer_button)
-		public void onAnswer(){
-			mRecyclerView.smoothScrollToPosition(mRecyclerView.getChildLayoutPosition(mView)+1);
 		}
 
 		@Override

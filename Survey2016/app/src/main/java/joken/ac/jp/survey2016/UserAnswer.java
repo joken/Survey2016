@@ -56,6 +56,10 @@ public enum UserAnswer {
 		return answers;
 	}
 
+	public void setAnswer(int position, int value){
+		answers.set(position, value);
+	}
+
 	/** 再初期化。 ただしIDはインクリメントされる。 */
 	public void clearAnswer(){
 		userSex = MALE;
