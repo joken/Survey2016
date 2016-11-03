@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +36,10 @@ public class QuestionContent {
 
 	/**
 	 * 問題を作成する。
-	 * @param file 問題ファイル(csv)。
+	 * @param stream オープンした問題ファイル(csv)。
 	 * */
-	private static void createQuestionItem(File file) throws FileNotFoundException,IOException{
-		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+	public static void createQuestionItem(InputStream stream) throws FileNotFoundException,IOException{
+		BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 		String line;
 		int id = 0;
 		while((line = in.readLine()) != null){
