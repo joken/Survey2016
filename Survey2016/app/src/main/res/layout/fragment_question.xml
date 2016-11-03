@@ -61,7 +61,7 @@
             android:text="@string/negative_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/negative__max_button"
+            android:id="@+id/negative_max_button"
             android:layout_weight="1"/>
 
     </RadioGroup>
