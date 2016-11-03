@@ -1,6 +1,7 @@
 package joken.ac.jp.survey2016;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import joken.ac.jp.survey2016.QuestionContent.QuestionItem;
 
@@ -19,11 +24,9 @@ import joken.ac.jp.survey2016.QuestionContent.QuestionItem;
  * interface.
  */
 public class QuestionFragment extends Fragment {
+	public static final String CURRENT_QUESTION_TABLE = "current_question_table";
+	public static final String CURRENT_QUESTION = "current_question";
 
-	// TODO: Customize parameter argument names
-	private static final String ARG_COLUMN_COUNT = "column-count";
-	// TODO: Customize parameters
-	private int mColumnCount = 1;
 	private OnListFragmentInteractionListener mListener;
 
 	/**
@@ -33,23 +36,11 @@ public class QuestionFragment extends Fragment {
 	public QuestionFragment() {
 	}
 
-	// TODO: Customize parameter initialization
-	@SuppressWarnings("unused")
-	public static QuestionFragment newInstance(int columnCount) {
-		QuestionFragment fragment = new QuestionFragment();
-		Bundle args = new Bundle();
-		args.putInt(ARG_COLUMN_COUNT, columnCount);
-		fragment.setArguments(args);
-		return fragment;
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (getArguments() != null) {
-			mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-		}
+		UserAnswer.THIS.setUserId(getContext());
 	}
 
 	@Override
@@ -61,14 +52,37 @@ public class QuestionFragment extends Fragment {
 		if (view instanceof RecyclerView) {
 			Context context = view.getContext();
 			RecyclerView recyclerView = (RecyclerView) view;
-			if (mColumnCount <= 1) {
-				recyclerView.setLayoutManager(new LinearLayoutManager(context));
-			} else {
-				recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-			}
-			recyclerView.setAdapter(new QuestionRecyclerViewAdapter(QuestionContent.ITEMS, mListener));
+			LinearLayoutManager manager = new LinearLayoutManager(context);
+			manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+			recyclerView.setLayoutManager(manager);
+			recyclerView.addOnItemTouchListener(new ScrollController());
+			//問題読み込み
+			loadQuestions();
+			recyclerView.setAdapter(new QuestionRecyclerViewAdapter(QuestionContent.ITEMS, mListener, recyclerView));
 		}
 		return view;
+	}
+
+	private void loadQuestions(){
+		SharedPreferences pref = getContext().getSharedPreferences(CURRENT_QUESTION_TABLE, Context.MODE_PRIVATE);
+		int currentQuestion = pref.getInt(CURRENT_QUESTION, 0);
+		int questionRes;
+		switch (currentQuestion){
+			case 0:
+				questionRes = R.raw.day1;
+				break;
+			case 1:
+				questionRes = R.raw.day2;
+				break;
+			default:
+				questionRes = R.raw.day1;
+		}
+		try{
+			InputStream s = getResources().openRawResource(questionRes);
+			QuestionContent.createQuestionItem(s);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 
