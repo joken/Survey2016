@@ -234,29 +234,4 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 		}
 	}
 
-	/** スクロール・コントローラ */
-	class ScrollController implements RecyclerView.OnItemTouchListener{
-		private boolean isScrollable = true;
-		@Override
-		public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-			return isScrollable;//trueだとユーザからのスクロールが不可。
-		}
-
-		@Override
-		public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-		}
-
-		@Override
-		public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-		}
-
-		public void enableScroll(){
-			isScrollable = false;
-		}
-
-		public void diableScroll(){
-			isScrollable = true;
-		}
-	}
-
 }

@@ -55,6 +55,7 @@ public class QuestionFragment extends Fragment {
 			LinearLayoutManager manager = new LinearLayoutManager(context);
 			manager.setOrientation(LinearLayoutManager.HORIZONTAL);
 			recyclerView.setLayoutManager(manager);
+			recyclerView.addOnItemTouchListener(new ScrollController());
 			//問題読み込み
 			loadQuestions();
 			recyclerView.setAdapter(new QuestionRecyclerViewAdapter(QuestionContent.ITEMS, mListener, recyclerView));
