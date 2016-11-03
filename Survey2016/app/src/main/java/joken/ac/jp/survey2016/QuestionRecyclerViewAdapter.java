@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -114,10 +116,30 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 			this.mAnswerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(RadioGroup group, int checkedId) {
-					if(UserAnswer.THIS.getAnswers().size() < position){
-						UserAnswer.THIS.addAnswer(checkedId);
+					int answerId;
+					switch (checkedId){
+						case R.id.positive_max_button:
+							answerId = 0;
+							break;
+						case R.id.positive_button:
+							answerId = 1;
+							break;
+						case R.id.natural_button:
+							answerId = 2;
+							break;
+						case R.id.negative_button:
+							answerId = 3;
+							break;
+						case R.id.negative_max_button:
+							answerId = 4;
+							break;
+						default:
+							return;
+					}
+					if(UserAnswer.THIS.getAnswers().size() <= position){
+						UserAnswer.THIS.addAnswer(answerId);
 					}else{
-						UserAnswer.THIS.setAnswer(position, checkedId);
+						UserAnswer.THIS.setAnswer(position, answerId);
 					}
 				}
 			});
@@ -125,6 +147,31 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 			this.answerButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					int answerId;
+					switch (mAnswerGroup.getCheckedRadioButtonId()){
+						case R.id.positive_max_button:
+							answerId = 0;
+							break;
+						case R.id.positive_button:
+							answerId = 1;
+							break;
+						case R.id.natural_button:
+							answerId = 2;
+							break;
+						case R.id.negative_button:
+							answerId = 3;
+							break;
+						case R.id.negative_max_button:
+							answerId = 4;
+							break;
+						default:
+							return;
+					}
+					if(UserAnswer.THIS.getAnswers().size() <= position){
+						UserAnswer.THIS.addAnswer(answerId);
+					}else{
+						UserAnswer.THIS.setAnswer(position, answerId);
+					}
 					if(position != QuestionContent.ITEMS.size() - 1){
 						mRecyclerView.smoothScrollToPosition(position+1);
 					}
