@@ -25,17 +25,93 @@
                 android:textSize="@dimen/bootstrap_h2_text_size"
                 android:textColor="@color/bootstrap_gray_dark"
                 android:gravity="fill_horizontal"/>
+
         </com.beardedhen.androidbootstrap.BootstrapWell>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin">
+
+            <com.beardedhen.androidbootstrap.BootstrapWell
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="@dimen/bootstrap_h3_text_size"
+                    android:text="@string/user_name"/>
+            </com.beardedhen.androidbootstrap.BootstrapWell>
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/userNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:hint="@string/user_name_hint"
+                app:bootstrapSize="xl"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:maxLines="1"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/text_margin">
+
+            <com.beardedhen.androidbootstrap.BootstrapWell
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="@dimen/bootstrap_h3_text_size"
+                    android:text="@string/user_sex"/>
+            </com.beardedhen.androidbootstrap.BootstrapWell>
+
+            <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:buttonMode="radio"
+                app:bootstrapBrand="primary"
+                app:roundedCorners="true"
+                app:bootstrapSize="xl"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:orientation="horizontal">
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/maleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"/>
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/femaleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"/>
+            </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+
+        </LinearLayout>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             app:bootstrapBrand="success"
             app:bootstrapSize="xl"
             app:roundedCorners="true"
             android:text="@string/start"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            />
 
     </LinearLayout>
 

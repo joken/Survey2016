@@ -8,6 +8,11 @@
     <string name="next">次へ</string>
     <string name="start">始める！</string>
     <string name="end">終了</string>
+    <string name="user_name">名前</string>
+    <string name="user_name_hint">お名前(ハンドルネーム推奨)</string>
+    <string name="user_sex">性別</string>
+    <string name="male">おとこのこ</string>
+    <string name="female">おんなのこ</string>
     <string name="welcome_msg">
         毎年恒例、情報処理研究会による恋人探しアンケートへようこそ！\n
         20個の質問に答えて、高専祭を訪れる人のなかから、あなたに最適な恋人候補を探し出しませんか？
