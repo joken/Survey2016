@@ -205,6 +205,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 					UserAnswer.THIS.setUserName(userNameText.getText().toString());
 					UserAnswer.THIS.setUserSex(userSex);
 
+					userNameText.getText().clear();
 					mRecyclerView.smoothScrollToPosition(position+1);
 				}
 			});
