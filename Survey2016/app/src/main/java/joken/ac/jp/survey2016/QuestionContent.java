@@ -44,7 +44,7 @@ public class QuestionContent {
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 		String line;
-		int id = 0;
+		int id = 1;
 		while((line = in.readLine()) != null){
 			addItem(new QuestionItem("Question."+String.valueOf(id), line));
 			id++;
