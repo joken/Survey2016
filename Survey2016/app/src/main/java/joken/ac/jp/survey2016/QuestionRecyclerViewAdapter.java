@@ -67,7 +67,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 	@Override
 	public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 		if(holder instanceof HeaderViewHolder){
-			((HeaderViewHolder)holder).onBindViewHolder(position);
+			((HeaderViewHolder)holder).onBindViewHolder();
 		}
 		if(holder instanceof FooterViewHolder){
 			((FooterViewHolder)holder).onBindViewHolder();
@@ -208,7 +208,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 			ButterKnife.bind(this, itemView);
 		}
 
-		public void onBindViewHolder(final int position){
+		public void onBindViewHolder(){
 			userNameText.addTextChangedListener(new TextWatcher() {
 				@Override
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -253,7 +253,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 					UserAnswer.THIS.setUserSex(userSex);
 
 					userNameText.getText().clear();
-					mRecyclerView.smoothScrollToPosition(position+1);
+					mRecyclerView.smoothScrollToPosition(1);
 				}
 			});
 		}
