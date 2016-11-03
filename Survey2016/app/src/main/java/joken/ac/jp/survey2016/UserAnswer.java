@@ -21,11 +21,13 @@ public enum UserAnswer {
 
 	private Context mContext;//保存ロジック実行用
 	private int userId;//ID
+	private String userName;//なまえ
 	private short userSex;//性別
 	private ArrayList<Integer> answers;//回答
 
 	UserAnswer(){
 		userSex = MALE;
+		userName = "";
 		answers = new ArrayList<>();
 	}
 
@@ -38,7 +40,14 @@ public enum UserAnswer {
 		userId = getCurrentID(mContext);
 	}
 
+	/**
+	 * 回答情報をcsvに保存する。
+	 * */
+	public void exportUser(){}
+
 	/** setter & getter */
+
+	public int getUserId(){ return userId; }
 
 	public void setUserSex(short usersex){
 		userSex = usersex;
@@ -47,6 +56,10 @@ public enum UserAnswer {
 	public short getUserSex(){
 		return userSex;
 	}
+
+	public void setUserName(String name){ userName = name; }
+
+	public String getUserName(){ return userName; }
 
 	public void addAnswer(int value){
 		answers.add(value);
@@ -63,6 +76,7 @@ public enum UserAnswer {
 	/** 再初期化。 ただしIDはインクリメントされる。 */
 	public void clearAnswer(){
 		userSex = MALE;
+		userName = "";
 		answers.clear();
 		SharedPreferences pref = mContext.getSharedPreferences(CURRENT_ID_INFO, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
