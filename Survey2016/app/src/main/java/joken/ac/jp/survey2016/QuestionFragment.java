@@ -57,7 +57,7 @@ public class QuestionFragment extends Fragment {
 			recyclerView.setLayoutManager(manager);
 			//問題読み込み
 			loadQuestions();
-			recyclerView.setAdapter(new QuestionRecyclerViewAdapter(QuestionContent.ITEMS, mListener));
+			recyclerView.setAdapter(new QuestionRecyclerViewAdapter(QuestionContent.ITEMS, mListener, recyclerView));
 		}
 		return view;
 	}

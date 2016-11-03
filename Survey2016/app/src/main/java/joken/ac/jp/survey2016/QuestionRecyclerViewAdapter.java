@@ -2,13 +2,18 @@ package joken.ac.jp.survey2016;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import joken.ac.jp.survey2016.QuestionFragment.OnListFragmentInteractionListener;
 import joken.ac.jp.survey2016.QuestionContent.QuestionItem;
 
+import java.io.BufferedReader;
 import java.util.List;
 
 /**
@@ -19,14 +24,16 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
 	private final List<QuestionItem> mValues;
 	private final OnListFragmentInteractionListener mListener;
+	private RecyclerView mRecyclerView;
 
 	/** View生成時にどのLayoutを使うか特定する一意な識別子 */
 	private static final int VIEW_HEADER = 4545;
 	private static final int VIEW_FOOTER = 1919;
 
-	public QuestionRecyclerViewAdapter(List<QuestionItem> items, OnListFragmentInteractionListener listener) {
+	public QuestionRecyclerViewAdapter(List<QuestionItem> items, OnListFragmentInteractionListener listener, RecyclerView recyclerView) {
 		mValues = items;
 		mListener = listener;
+		mRecyclerView = recyclerView;
 	}
 
 	/** ViewHolder作成(LayoutをInflateする) */
@@ -81,15 +88,14 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 	/** 問題のViewHolder */
 	class QuestionViewHolder extends RecyclerView.ViewHolder {
 		public final View mView;
-		public final TextView mIdView;
-		public final TextView mContentView;
+		@BindView(R.id.question_id) TextView mIdView;
+		@BindView(R.id.content) TextView mContentView;
 		public QuestionItem mItem;
 
 		public QuestionViewHolder(View view) {
 			super(view);
 			mView = view;
-			mIdView = (TextView) view.findViewById(R.id.question_id);
-			mContentView = (TextView) view.findViewById(R.id.content);
+			ButterKnife.bind(this, mView);
 		}
 
 		public void onBindViewHolder(QuestionItem item){
@@ -106,6 +112,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 					}
 				}
 			});
+		}
+
+		@OnClick(R.id.answer_button)
+		public void onAnswer(){
+			mRecyclerView.smoothScrollToPosition(mRecyclerView.getChildLayoutPosition(mView)+1);
 		}
 
 		@Override
@@ -132,6 +143,31 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 		}
 
 		public void onBindViewHolder(){}
+	}
+
+	/** スクロール・コントローラ */
+	class ScrollController implements RecyclerView.OnItemTouchListener{
+		private boolean isScrollable = true;
+		@Override
+		public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+			return isScrollable;//trueだとユーザからのスクロールが不可。
+		}
+
+		@Override
+		public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+		}
+
+		@Override
+		public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+		}
+
+		public void enableScroll(){
+			isScrollable = false;
+		}
+
+		public void diableScroll(){
+			isScrollable = true;
+		}
 	}
 
 }
