@@ -2,7 +2,12 @@ package joken.ac.jp.survey2016;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +48,36 @@ public enum UserAnswer {
 	/**
 	 * 回答情報をcsvに保存する。
 	 * */
-	public void exportUser(){}
+	public void exportUser(){
+		//フォーマット化文字列作成
+		StringBuilder builder = new StringBuilder();
+		builder.append(getUserId()).append(",")
+			.append(getUserName()).append(",")
+			.append(getUserSex()).append(",");
+		for(int ans : answers){
+				builder.append(ans).append(",");
+		}
+		builder.deleteCharAt(builder.lastIndexOf(","));
+		String data = builder.toString();
+
+		SharedPreferences pref = mContext.getSharedPreferences(QuestionFragment.CURRENT_QUESTION_TABLE, Context.MODE_PRIVATE);
+		int day = pref.getInt(QuestionFragment.CURRENT_QUESTION, 0);
+		String filename = "/answer_day" + day + ".csv";
+		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath()+filename);
+		try{
+			if(!file.exists()){
+				if(!file.createNewFile())return;
+			}
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))){
+			writer.write(data);
+			writer.newLine();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
 
 	/** setter & getter */
 
