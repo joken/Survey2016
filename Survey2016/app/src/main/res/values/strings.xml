@@ -6,4 +6,15 @@
     <string name="negative">あまりそう思わない</string>
     <string name="negative_max">そう思わない</string>
     <string name="next">次へ</string>
+    <string name="start">始める！</string>
+    <string name="end">終了</string>
+    <string name="welcome_msg">
+        毎年恒例、情報処理研究会による恋人探しアンケートへようこそ！\n
+        20個の質問に答えて、高専祭を訪れる人のなかから、あなたに最適な恋人候補を探し出しませんか？
+    </string>
+    <string name="thanks_msg">
+        アンケートへのご協力ありがとうございました。\n
+        下に表示されるIDを控えておいてください。結果を見るときに必要です。\n
+        結果はアンケート特設ページて閲覧可能です。
+    </string>
 </resources>
