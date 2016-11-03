@@ -40,7 +40,7 @@ public class QuestionFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
+		UserAnswer.THIS.setUserId(getContext());
 	}
 
 	@Override
