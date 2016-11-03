@@ -8,7 +8,7 @@ import android.view.MotionEvent;
  * スクロール・コントローラ
  */
 public class ScrollController implements RecyclerView.OnItemTouchListener {
-	private boolean isScrollable = true;
+	private boolean isScrollable = false;
 	@Override
 	public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 		return isScrollable;//trueだとユーザからのスクロールが不可。
