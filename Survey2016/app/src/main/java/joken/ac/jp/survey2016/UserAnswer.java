@@ -20,8 +20,8 @@ public enum UserAnswer {
 
 	public static final short MALE = 0;
 	public static final short FEMALE = 1;
-	public static final int DEFAULT_ID = 200;
-	private static final String CURRENT_ID_INFO = "current_id_info";
+	public static final String DEFAULT_ID = "200";
+	public static final String CURRENT_ID_INFO = "current_id_info";
 	private static final String CURRENT_ID = "current_id";
 
 	private Context mContext;//保存ロジック実行用
@@ -114,7 +114,7 @@ public enum UserAnswer {
 		answers.clear();
 		SharedPreferences pref = mContext.getSharedPreferences(CURRENT_ID_INFO, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
-		editor.putInt(CURRENT_ID, userId);
+		editor.putString(CURRENT_ID, String.valueOf(userId));
 		editor.apply();
 		userId++;
 	}
@@ -122,8 +122,7 @@ public enum UserAnswer {
 	/** SharedPreferencesからIDをとってくる */
 	private int getCurrentID(Context context){
 		SharedPreferences pref = context.getSharedPreferences(CURRENT_ID_INFO, Context.MODE_PRIVATE);
-		int id = pref.getInt(CURRENT_ID, DEFAULT_ID);
-		return id;
+		return Integer.valueOf(pref.getString(CURRENT_ID, DEFAULT_ID));
 	}
 
 }
