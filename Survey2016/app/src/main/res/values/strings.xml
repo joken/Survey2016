@@ -22,4 +22,23 @@
         下に表示されるIDを控えておいてください。結果を見るときに必要です。\n
         結果はアンケート特設ページて閲覧可能です。
     </string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_display_name">UserIdを手動で振る</string>
+
+    <string name="pref_title_add_friends_to_messages">質問の使い分け</string>
+    <string-array name="pref_example_list_titles">
+        <item>1日目</item>
+        <item>2日目</item>
+    </string-array>
+    <integer-array name="pref_example_list_values">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+
 </resources>
