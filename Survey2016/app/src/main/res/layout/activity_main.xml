@@ -19,7 +19,8 @@
             android:background="@color/bootstrap_brand_warning"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
-            android:id="@+id/MainToolbar"/>
+            android:id="@+id/MainToolbar"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse" />
 
         <fragment
             android:name="joken.ac.jp.survey2016.QuestionFragment"
