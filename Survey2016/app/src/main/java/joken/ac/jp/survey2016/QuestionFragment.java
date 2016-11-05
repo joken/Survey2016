@@ -3,6 +3,7 @@ package joken.ac.jp.survey2016;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,8 +65,8 @@ public class QuestionFragment extends Fragment {
 	}
 
 	private void loadQuestions(){
-		SharedPreferences pref = getContext().getSharedPreferences(CURRENT_QUESTION_TABLE, Context.MODE_PRIVATE);
-		int currentQuestion = pref.getInt(CURRENT_QUESTION, 0);
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+		int currentQuestion = Integer.valueOf(pref.getString(CURRENT_QUESTION, "0"));
 		int questionRes;
 		switch (currentQuestion){
 			case 0:

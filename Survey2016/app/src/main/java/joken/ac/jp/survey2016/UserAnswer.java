@@ -3,6 +3,7 @@ package joken.ac.jp.survey2016;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,9 +21,9 @@ public enum UserAnswer {
 
 	public static final short MALE = 0;
 	public static final short FEMALE = 1;
-	public static final String DEFAULT_ID = "200";
+	public static final String DEFAULT_ID = "1001";
 	public static final String CURRENT_ID_INFO = "current_id_info";
-	private static final String CURRENT_ID = "current_id";
+	public static final String CURRENT_ID = "current_id";
 
 	private Context mContext;//保存ロジック実行用
 	private int userId;//ID
@@ -60,8 +61,8 @@ public enum UserAnswer {
 		builder.deleteCharAt(builder.lastIndexOf(","));
 		String data = builder.toString();
 
-		SharedPreferences pref = mContext.getSharedPreferences(QuestionFragment.CURRENT_QUESTION_TABLE, Context.MODE_PRIVATE);
-		int day = pref.getInt(QuestionFragment.CURRENT_QUESTION, 0);
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+		int day = Integer.valueOf(pref.getString(QuestionFragment.CURRENT_QUESTION, "0"));
 		String filename = "/answer_day" + day + ".csv";
 		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath()+filename);
 		try{
@@ -112,7 +113,7 @@ public enum UserAnswer {
 		userSex = MALE;
 		userName = "";
 		answers.clear();
-		SharedPreferences pref = mContext.getSharedPreferences(CURRENT_ID_INFO, Context.MODE_PRIVATE);
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putString(CURRENT_ID, String.valueOf(userId));
 		editor.apply();
@@ -121,7 +122,7 @@ public enum UserAnswer {
 
 	/** SharedPreferencesからIDをとってくる */
 	private int getCurrentID(Context context){
-		SharedPreferences pref = context.getSharedPreferences(CURRENT_ID_INFO, Context.MODE_PRIVATE);
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 		return Integer.valueOf(pref.getString(CURRENT_ID, DEFAULT_ID));
 	}
 

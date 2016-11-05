@@ -4,6 +4,7 @@ package joken.ac.jp.survey2016;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -88,10 +89,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         // Trigger the listener immediately with the preference's
         // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+        SharedPreferences pref =  PreferenceManager
+                .getDefaultSharedPreferences(preference.getContext());
+        if(preference.getKey().equals(UserAnswer.CURRENT_ID)){
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    pref.getString(UserAnswer.CURRENT_ID, UserAnswer.DEFAULT_ID));
+        }else if(preference.getKey().equals(QuestionFragment.CURRENT_QUESTION)){
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    pref.getString(QuestionFragment.CURRENT_QUESTION, "0"));
+        }
     }
 
     @Override
@@ -140,8 +146,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference(UserAnswer.CURRENT_ID_INFO));
-            bindPreferenceSummaryToValue(findPreference(QuestionFragment.CURRENT_QUESTION_TABLE));
+            bindPreferenceSummaryToValue(findPreference(UserAnswer.CURRENT_ID));
+            bindPreferenceSummaryToValue(findPreference(QuestionFragment.CURRENT_QUESTION));
         }
     }
 
